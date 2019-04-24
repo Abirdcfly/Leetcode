@@ -1,4 +1,5 @@
-/**
+//https://leetcode.com/problems/palindrome-linked-list/discuss/64500/11-lines-12-with-restore-O(n)-time-O(1)-space
+/*
  * Definition for singly-linked list.
  * type ListNode struct {
  *     Val int
