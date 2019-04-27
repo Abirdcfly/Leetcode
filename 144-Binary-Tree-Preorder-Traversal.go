@@ -23,3 +23,19 @@ func pre(root *TreeNode, res *[]int) {
 		pre(root.Right, res)
 	}
 }
+func preorderTraversal(root *TreeNode) []int {
+	res := make([]int, 0)
+	stack := make([]*TreeNode, 0)
+	for root != nil || len(stack) != 0 {
+		for root != nil {
+			res = append(res, root.Val)
+			stack = append(stack, root)
+			root = root.Left
+		}
+		if len(stack) != 0 {
+			root, stack = stack[len(stack)-1], stack[:len(stack)-1]
+			root = root.Right
+		}
+	}
+	return res
+}
