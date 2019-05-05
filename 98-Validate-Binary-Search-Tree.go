@@ -1,3 +1,5 @@
+import "math"
+
 /**
  * Definition for a binary tree node.
  * type TreeNode struct {
@@ -31,4 +33,21 @@ func in(root *TreeNode) []int {
 		o = append(o, in(root.Right)...)
 	}
 	return o
-} 
+}
+
+// 递归
+func isValidBST(root *TreeNode) bool {
+	return test(root, math.MinInt64, math.MaxInt64)
+}
+
+func test(root *TreeNode, min, max int) bool {
+	if nil == root {
+		return true
+	}
+	if root.Val >= max || root.Val <= min {
+		return false
+	}
+	lflag := test(root.Left, min, root.Val)
+	rflag := test(root.Right, root.Val, max)
+	return lflag && rflag
+}
