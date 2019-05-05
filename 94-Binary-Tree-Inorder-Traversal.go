@@ -24,6 +24,8 @@ func in(root *TreeNode, res *[]int) {
 		in(root.Right, res)
 	}
 }
+
+// 非递归
 func inorderTraversal(root *TreeNode) []int {
 	//https://www.youtube.com/watch?v=fgEZMCrFrt4
 	stack := make([]*TreeNode, 0)
@@ -40,4 +42,19 @@ func inorderTraversal(root *TreeNode) []int {
 		}
 	}
 	return res
+}
+
+func inorderTraversal(root *TreeNode) []int {
+	o := make([]int, 0)
+	if root == nil {
+		return o
+	}
+	if root.Left != nil {
+		o = append(o, inorderTraversal(root.Left)...)
+	}
+	o = append(o, root.Val)
+	if root.Right != nil {
+		o = append(o, inorderTraversal(root.Right)...)
+	}
+	return o
 }
