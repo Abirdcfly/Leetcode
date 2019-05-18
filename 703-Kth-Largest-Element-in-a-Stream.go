@@ -42,9 +42,7 @@ func (this *KthLargest) Add(val int) int {
 	if this.Heap.Len() > this.HeapLen {
 		heap.Pop(&this.Heap)
 	}
-	res := heap.Pop(&this.Heap).(int)
-	heap.Push(&this.Heap, res)
-	return res
+	return this.Heap[0]
 }
 
 /**
