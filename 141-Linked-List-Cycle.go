@@ -18,3 +18,5 @@ func hasCycle(head *ListNode) bool {
 	}
 	return false
 }
+
+//除去快慢指针法和暴力法。实际上用map存节点地址也是很好的办法。而且这种办法更不容易出错，变形题找节点位置也更好做。
