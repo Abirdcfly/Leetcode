@@ -1,3 +1,8 @@
+import (
+	"sort"
+	"strings"
+)
+
 func isAnagram(s string, t string) bool {
 	if len(s) != len(t) {
 		return false
@@ -20,3 +25,17 @@ func isAnagram(s string, t string) bool {
 	}
 	return true
 }
+
+// 以上的构建一个map 第二个来递减第一个可以，也可以构建2个map来比较，或者排序来处理。
+func isAnagram(s string, t string) bool {
+	ss := sortstring(s)
+	st := sortstring(t)
+	return ss == st
+}
+
+func sortstring(s string) string {
+	news := strings.Split(s, "")
+	sort.Strings(news)
+	return strings.Join(news, "")
+}
+
