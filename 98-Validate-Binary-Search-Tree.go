@@ -19,6 +19,15 @@ func isValidBST(root *TreeNode) bool {
 		}
 	}
 	return true
+	/*
+			上面判断无重复有序的片段也可借助标准库实现
+			for i:= range res {
+		        if i>0 && res[i] == res[i-1] {
+		            return false
+		        }
+		    }
+		    return sort.IntsAreSorted(res)
+	*/
 }
 func in(root *TreeNode) []int {
 	o := make([]int, 0)
