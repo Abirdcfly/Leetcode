@@ -1,4 +1,5 @@
 import (
+	"math"
 	"sort"
 	"strings"
 )
@@ -39,3 +40,9 @@ func sortstring(s string) string {
 	return strings.Join(news, "")
 }
 
+func sortstring(s string) (res int) {
+	for _, i := range s {
+		res += int(math.Pow(10, float64(i-'a')))
+	}
+	return
+}
