@@ -11,6 +11,10 @@ func maxProfit(prices []int) int {
 		if res < prices[i]-min {
 			res = prices[i] - min
 		}
+		/*
+					min = int(math.Min(float64(prices[i]), float64(min)))
+			        res = int(math.Max(float64(prices[i] - min), float64(res)))
+		*/
 	}
 	return res
 }
