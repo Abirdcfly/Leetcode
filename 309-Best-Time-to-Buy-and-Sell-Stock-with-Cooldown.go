@@ -38,3 +38,5 @@ func maxProfit(prices []int) int {
 	res = Max(mp[n-1][0]...)
 	return res
 }
+
+//https://www.youtube.com/watch?v=oL6mRyTn56M 这个很清晰
