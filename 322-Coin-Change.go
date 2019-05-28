@@ -1,4 +1,7 @@
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 func coinChange(coins []int, amount int) int {
 	if amount == 0 {
@@ -27,6 +30,32 @@ func coinChange(coins []int, amount int) int {
 		}
 	}
 	if m[amount] == 0 {
+		return -1
+	}
+	return m[amount]
+}
+
+func coinChange(coins []int, amount int) int {
+	if amount == 0 {
+		return 0
+	}
+	m := make([]int, amount+1)
+	for i := range m {
+		m[i] = amount + 1
+	}
+	m[0] = 0
+	for i := 0; i < amount+1; i++ {
+		for _, j := range coins {
+			if j <= i {
+				t := m[i-j] + 1
+				if t < m[i] {
+					m[i] = t
+				}
+			}
+		}
+	}
+	fmt.Println(m)
+	if m[amount] >= amount+1 {
 		return -1
 	}
 	return m[amount]
