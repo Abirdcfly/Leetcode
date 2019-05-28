@@ -4,6 +4,7 @@ func minDistance(word1 string, word2 string) int {
 	for i := range dp {
 		dp[i] = make([]int, m+1)
 	}
+	// dp[i][j] 表示word1前i个字符和word2前j个字符相同时的最小编辑距离
 	for i := range dp {
 		dp[i][0] = i
 	}
