@@ -23,3 +23,31 @@ func lengthOfLIS(nums []int) int {
 	sort.Ints(m)
 	return m[l-1]
 }
+
+func lengthOfLIS(nums []int) int {
+	l := len(nums)
+	if l == 0 || l == 1 {
+		return l
+	}
+	m := make([]int, 1)
+	//二分思维 O(NlogN)
+	m[0] = nums[0]
+	for i := 0; i < l; i++ {
+		x, max := nums[i], m[len(m)-1]
+		if x > max {
+			m = append(m, x)
+		} else {
+			s, e, mid := 0, len(m)-1, 0
+			for s < e {
+				mid = (s + e) / 2
+				if m[mid] < x {
+					s = mid + 1
+				} else {
+					e = mid
+				}
+			}
+			m[s] = x
+		}
+	}
+	return len(m)
+}
