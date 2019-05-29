@@ -38,3 +38,55 @@ func bfs(r, c int, grid [][]byte) {
 	}
 	return
 }
+
+//并查集
+func numIslands(grid [][]byte) int {
+	if len(grid) == 0 {
+		return 0
+	}
+	m, n := len(grid), len(grid[0])
+	UF := make([]int, m*n)
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == '1' {
+				UF[n*i+j] = n*i + j
+			}
+		}
+	}
+	dr := [4]int{0, 1, 0, -1}
+	dc := [4]int{1, 0, -1, 0}
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == '1' {
+				for k := 0; k < 4; k++ {
+					ni, nj := i+dr[k%4], j+dc[k%4]
+					if ni >= 0 && ni < m && nj >= 0 && nj < n && grid[ni][nj] == '1' {
+						union(UF, UF[n*i+j], UF[n*ni+nj])
+					}
+				}
+			}
+		}
+	}
+	count := 0
+	for i := range UF {
+		if UF[i] == i && grid[i/n][i%n] == '1' { // 防止[["0"]] 这种错误
+			count++
+		}
+	}
+	return count
+}
+
+func union(UF []int, i, j int) {
+	iroot := find(UF, i)
+	jroot := find(UF, j)
+	if iroot != jroot {
+		UF[jroot] = iroot
+	}
+}
+
+func find(UF []int, i int) int {
+	for UF[i] != i {
+		i = UF[i]
+	}
+	return i
+}
