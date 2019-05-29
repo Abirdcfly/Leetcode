@@ -56,3 +56,46 @@ func find(UF []int, i int) int {
 	return i
 }
 
+// 上面想复杂了。正确且简单的Union Find
+func findCircleNum(M [][]int) int {
+	n := len(M)
+	if n == 0 || n == 1 {
+		return n
+	}
+	UF := make([]int, n)
+	count := 0
+	for i := 0; i < n; i++ {
+		UF[i] = i
+	}
+	for i := 0; i < n; i++ {
+		for j := i; j < n; j++ {
+			if M[i][j] == 1 {
+				union(UF, i, j)
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		if UF[i] == i {
+			count++
+		}
+	}
+	return count
+}
+
+func union(UF []int, i, j int) {
+	iroot := find(UF, i)
+	jroot := find(UF, j)
+	if iroot < jroot {
+		UF[jroot] = iroot
+	} else {
+		UF[iroot] = jroot
+	}
+}
+
+func find(UF []int, i int) int {
+	for UF[i] != i {
+		i = UF[i]
+	}
+	return i
+}
+
