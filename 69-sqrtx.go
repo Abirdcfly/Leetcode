@@ -7,16 +7,18 @@ func mySqrt(x int) int {
 }
 
 func mySqrt(x int) int {
-	l, r := 0, x
-	for l <= r {
-		m := l + (r-l)>>1
-		if m*m == x {
-			return m
-		} else if m*m > x {
-			r = m - 1
+	s, e, mid := 1, x, 0
+	for s <= e {
+		mid = s + (e-s)>>1
+		if x/mid == mid {
+			return mid
+		} else if x/mid > mid {
+			s = mid + 1
 		} else {
-			l = m + 1
+			e = mid - 1
 		}
 	}
-	return r
+	return e
 }
+
+//https://leetcode.com/problems/sqrtx/discuss/25047/A-Binary-Search-Solution/24042
