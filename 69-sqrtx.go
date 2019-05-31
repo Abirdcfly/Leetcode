@@ -6,6 +6,8 @@ func mySqrt(x int) int {
 	return res
 }
 
+//https://www.zhihu.com/question/20690553/answer/146104283
+
 func mySqrt(x int) int {
 	s, e, mid := 1, x, 0
 	for s <= e {
