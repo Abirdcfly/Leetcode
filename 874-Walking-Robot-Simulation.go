@@ -114,3 +114,39 @@ func inpath(si, sj, ei, ej, oi, oj int) (ri, rj int, flag bool) {
 	}
 	return
 }
+
+//更好理解的自己写的版本
+func robotSim(commands []int, obstacles [][]int) int {
+	dx := [4]int{0, 1, 0, -1}
+	dy := [4]int{1, 0, -1, 0}
+	d := 0
+	x, y := 0, 0
+	max := 0
+	for _, i := range commands {
+		if i == -1 {
+			d = (d + 1) % 4
+		} else if i == -2 {
+			d = (d - 1 + 4) % 4
+		} else {
+			tx, ty := dx[d]*1, dy[d]*1
+			for j := 0; j < i; j++ {
+				stop := false
+				for _, item := range obstacles {
+					if x+tx == item[0] && y+ty == item[1] {
+						stop = true
+					}
+				}
+				if !stop {
+					x, y = x+tx, y+ty
+				} else {
+					break
+				}
+			}
+			maxt := x*x + y*y
+			if maxt > max {
+				max = maxt
+			}
+		}
+	}
+	return max
+}
