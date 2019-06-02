@@ -23,4 +23,25 @@ func findAnagrams(s string, p string) []int {
 	return r
 }
 
+//滑动窗口法https://www.youtube.com/watch?v=86fQQ7rVGxA
+func findAnagrams(s string, p string) []int {
+	lp := len(p)
+	mp := [26]int{}
+	ms := [26]int{}
+	res := make([]int, 0)
+	for _, i := range p {
+		mp[i-'a']++
+	}
+	for index, i := range s {
+		if index >= lp {
+			ms[s[index-lp]-'a']--
+		}
+		ms[i-'a']++
+		if mp == ms {
+			res = append(res, index-lp+1)
+		}
+	}
+	return res
+}
+
 
