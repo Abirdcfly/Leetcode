@@ -99,3 +99,24 @@ func find(UF []int, i int) int {
 	return i
 }
 
+//dfs
+func findCircleNum(M [][]int) int {
+	count := 0
+	visited := make([]bool, len(M))
+	for i := range M {
+		if !visited[i] {
+			dfs(i, &visited, M)
+			count++
+		}
+	}
+	return count
+}
+
+func dfs(i int, visited *[]bool, M [][]int) {
+	for j := range M {
+		if M[i][j] == 1 && !(*visited)[j] {
+			(*visited)[j] = true
+			dfs(j, visited, M)
+		}
+	}
+}
