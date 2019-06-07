@@ -87,3 +87,31 @@ func maxProfit(prices []int) int {
 	}
 	return dp[(len(prices)-1)%2][0]
 }
+
+//自己另一种ac版本 状态定义的好写的会很顺
+func maxProfit(prices []int) int {
+	if len(prices) == 0 {
+		return 0
+	}
+	max := func(i, j int) int {
+		if i > j {
+			return i
+		}
+		return j
+	}
+	dp := make([][][]int, 2) // 昨天和今天
+	for i := range dp {
+		dp[i] = make([][]int, 2) // 当天是否持有
+		for j := range dp[i] {
+			dp[i][j] = make([]int, 2) //当天是否卖出
+		}
+	}
+	dp[0][1][0] = -prices[0]
+	for i := 1; i < len(prices); i++ {
+		t, y := i%2, (i-1)%2
+		dp[t][0][0] = max(dp[y][0][0], dp[y][0][1])
+		dp[t][0][1] = dp[y][1][0] + prices[i]
+		dp[t][1][0] = max(dp[y][1][0], dp[y][0][0]-prices[i])
+	}
+	return max(dp[(len(prices)-1)%2][0][0], dp[(len(prices)-1)%2][0][1])
+}
