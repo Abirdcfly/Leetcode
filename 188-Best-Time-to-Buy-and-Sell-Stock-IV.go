@@ -114,7 +114,15 @@ func maxProfit(k int, prices []int) int {
 		return 0
 	}
 	if k > len(prices)/2 {
-		k = len(prices) / 2
+		//k = len(prices) / 2
+		//用上面一行然后继续127行也可以。119-126行退化为无限交易次数，能大大减少Runtime
+		res := 0
+		for i := 1; i < n; i++ {
+			if prices[i] > prices[i-1] {
+				res += prices[i] - prices[i-1]
+			}
+		}
+		return res
 	}
 	dp := make([][][]int, 2) //当天和前一天
 	for i := range dp {
