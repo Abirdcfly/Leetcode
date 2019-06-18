@@ -99,6 +99,43 @@ func find(UF []int, i int) int {
 	return i
 }
 
+//uf 写的行数少点
+func findcirclenum(m [][]int) int {
+    root := func(uf []int, i int) int {
+        for uf[i] != i{
+            i = uf[i]
+        }
+        return i
+    }
+    join := func(uf []int, i, j int){
+        x := root(uf, i)
+        y := root(uf, j)
+        if x < y {
+            uf[y] = x
+        }else{
+            uf[x] = y
+        }
+    }
+    uf := make([]int, len(m))
+    for i:= range uf{
+        uf[i] = i
+    }
+    for i:= range uf{
+        for j:=range uf{
+            if m[i][j] == 1{
+                join(uf,i,j)
+            }
+        }
+    }
+    n:=0
+    for i:= range uf{
+        if uf[i] == i{
+            n++
+        }
+    }
+    return n
+}
+
 //dfs
 func findCircleNum(M [][]int) int {
 	count := 0
