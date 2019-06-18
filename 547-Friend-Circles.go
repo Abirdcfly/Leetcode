@@ -105,18 +105,47 @@ func findCircleNum(M [][]int) int {
 	visited := make([]bool, len(M))
 	for i := range M {
 		if !visited[i] {
-			dfs(i, &visited, M)
+			dfs(i, visited, M)
 			count++
 		}
 	}
 	return count
 }
 
-func dfs(i int, visited *[]bool, M [][]int) {
+func dfs(i int, visited []bool, M [][]int) {
 	for j := range M {
-		if M[i][j] == 1 && !(*visited)[j] {
-			(*visited)[j] = true
+		if M[i][j] == 1 && !visited[j] {
+			visited[j] = true
 			dfs(j, visited, M)
 		}
 	}
 }
+
+//dfs 差不多的
+func findCircleNum(M [][]int) int {
+    n := 0
+    if len(M) == 0 {
+        return n
+    }
+    visited := make([]bool, len(M))
+    for i:= range M{
+        if !visited[i]{
+            n++
+        }
+        dfs(i, M, visited)
+    }
+    return n
+}
+
+func dfs(i int, M [][]int, visited []bool){
+    if visited[i] {
+        return
+    }
+    visited[i] = true
+    for j:= range M{
+        if j!= i && M[i][j] == 1 {
+            dfs(j, M, visited)
+        }
+    }
+}
+
