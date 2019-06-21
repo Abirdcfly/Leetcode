@@ -14,3 +14,23 @@ func isPerfectSquare(num int) bool {
 	}
 	return false
 }
+
+//用小于号要记得考虑1
+func isPerfectSquare(num int) bool {
+    if num == 1{
+        return true
+    }
+    s,e,m := 1,num,0
+    for s<e{
+        m = (s+e)/2
+        if m*m == num{
+            return true
+        }
+        if m*m < num{
+            s = m+1
+        }else{
+            e = m
+        }
+    }
+    return false
+}
