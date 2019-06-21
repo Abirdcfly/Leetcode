@@ -45,3 +45,20 @@ func findAnagrams(s string, p string) []int {
 }
 
 
+//hash 法
+func findAnagrams(s string, p string) []int {
+	hash := func(s string) (res int){
+		for _,i:= range s{
+			res += 1<<uint(i-'a')			        
+		}
+		return res
+	}
+	std := hash(p)
+	res := make([]int, 0)
+	for i:= range s{
+		if i+len(p) <= len(s) && hash(s[i:i+len(p)]) == std{
+			res = append(res, i)
+		}			    
+	}
+	return res
+}
