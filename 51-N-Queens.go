@@ -40,3 +40,34 @@ func dfs(r, n int, col, pie, na []bool, resCur []int, resAll *[][]int) {
 		col[c], pie[r+c], na[c-r+n] = false, false, false
 	}
 }
+
+// 用数字代替数组
+func solveNQueens(n int) [][]string {
+	res := make([][]string, 0)
+	dfs(0, n, 0, 0, 0, &res, make([]int, 0))
+	return res
+}
+
+func dfs(i, n int, col, pie, na int, resAll *[][]string, resNow []int) {
+	if i == n {
+		r := make([]string, n)
+		for index, j := range resNow {
+			b := make([]rune, n)
+			for x := 0; x < n; x++ {
+				if j == 1<<uint(x) {
+					b[x] = 'Q'
+				} else {
+					b[x] = '.'
+				}
+			}
+			r[index] = string(b)
+		}
+		*resAll = append(*resAll, r)
+		return
+	}
+	for choices := (1<<uint(n) - 1) & (^(col | pie | na)); choices != 0; choices = choices & (choices - 1) {
+		c := choices & (-choices)
+		dfs(i+1, n, col|c, (pie|c)<<1, (na|c)>>1, resAll, append(resNow, c))
+	}
+}
+
