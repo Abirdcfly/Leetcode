@@ -24,19 +24,18 @@ func findLengthOfLCIS(nums []int) int {
 	if l == 0 || l == 1 {
 		return l
 	}
-	ml, m, res := 1, 0, 0 //必须包含前一个数字时最大长度，必须包含当前数字时当前最大长度，结果
+	t, max := 1, 0
 	for i := 1; i < l; i++ {
 		if nums[i] > nums[i-1] {
-			m = ml + 1
+			t++
 		} else {
-			m = 1
+			t = 1
 		}
-		if m > res {
-			res = m
+		if t >= max {
+			max = t
 		}
-		ml = m
 	}
-	return res
+	return max
 }
 
 
