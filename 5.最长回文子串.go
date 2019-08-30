@@ -29,34 +29,34 @@
  *
  *
  */
-// func longestPalindrome(s string) string {
-// 	// dp法
-// 	//dp[i][j] 表示j到i是回文的
-// 	if len(s) == 0 {
-// 		return s
-// 	}
-// 	maxs, maxe := 0, 0
-// 	dp := make([][]bool, len(s))
-// 	for i:= range dp{
-// 		dp[i] = make([]bool, i)
-// 	}
-// 	for i:= range s {
-// 		for j:=0;j<i;j++{
-// 			if i-j == 1 || i-1 == j+1 {
-// 				// c b b     c b b
-// 				// j i       j   i
-// 				dp[i][j] = s[i]==s[j]
-// 			}else{
-// 				//中间不止有0或1个
-// 				dp[i][j] = dp[i-1][j+1] && s[i]==s[j]
-// 			}
-// 			if dp[i][j] && i-j > maxe - maxs{
-// 				maxs, maxe = j, i
-// 			}
-// 		}
-// 	}
-// 	return s[maxs:maxe+1]
-// }
+func longestPalindrome(s string) string {
+	// dp法
+	//dp[i][j] 表示j到i是回文的
+	if len(s) == 0 {
+		return s
+	}
+	maxs, maxe := 0, 0
+	dp := make([][]bool, len(s))
+	for i:= range dp{
+		dp[i] = make([]bool, i)
+	}
+	for i:= range s {
+		for j:=0;j<i;j++{
+			if i-j == 1 || i-1 == j+1 {
+				// c b b     c b b
+				// j i       j   i
+				dp[i][j] = s[i]==s[j]
+			}else{
+				//中间不止有0或1个
+				dp[i][j] = dp[i-1][j+1] && s[i]==s[j]
+			}
+			if dp[i][j] && i-j > maxe - maxs{
+				maxs, maxe = j, i
+			}
+		}
+	}
+	return s[maxs:maxe+1]
+}
 
 func longestPalindrome(s string) string {
 	if len(s) == 0 {
